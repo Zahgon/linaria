@@ -16,13 +16,7 @@ export default class AtomicStyledProcessor extends StyledProcessor {
   #classes: string | undefined;
 
   private get classes(): string {
-    if (this.#classes) {
-      return this.#classes;
-    }
-
-    throw new Error(
-      'Styles are not extracted yet. Please call `extractRules` first.'
-    );
+      throw new Error("STUB");
   }
 
   public override extractRules(
@@ -30,41 +24,11 @@ export default class AtomicStyledProcessor extends StyledProcessor {
     cssText: string,
     loc?: SourceLocation | null
   ): Rules {
-    const rules: Rules = {};
-
-    const wrappedValue =
-      typeof this.component === 'string'
-        ? null
-        : valueCache.get(this.component.node.name);
-
-    const atomicRules = atomize(cssText, hasEvalMeta(wrappedValue));
-    atomicRules.forEach((rule) => {
-      // eslint-disable-next-line no-param-reassign
-      rules[rule.cssText] = {
-        cssText: rule.cssText,
-        start: loc?.start ?? null,
-        className: this.className,
-        displayName: this.displayName,
-        atom: true,
-      };
-
-      debug('extracted-atomic-rule:\n%s', rule.cssText);
-    });
-
-    this.#classes = atomicRules
-      // Some atomic rules produced (eg. keyframes) don't have class names, and they also don't need to appear in the object
-      .filter((rule) => !!rule.className)
-      .map((rule) => rule.className!)
-      .join(' ');
-
-    return rules;
+      throw new Error("STUB");
   }
 
   protected override getProps(): IProps {
-    const props = super.getProps();
-    props.class = [this.classes, this.className].filter(Boolean).join(' ');
-    props.atomic = true;
-    return props;
+      throw new Error("STUB");
   }
 
   protected override getVariableId(
@@ -72,13 +36,6 @@ export default class AtomicStyledProcessor extends StyledProcessor {
     unit: string,
     precedingCss: string
   ): string {
-    const id = this.getCustomVariableId(source, unit, precedingCss);
-    if (id) {
-      return id;
-    }
-
-    const context = this.getVariableContext(source, unit, precedingCss);
-    // id is based on the slugified value
-    return context.valueSlug;
+      throw new Error("STUB");
   }
 }

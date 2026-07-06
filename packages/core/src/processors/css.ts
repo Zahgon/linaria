@@ -14,11 +14,11 @@ type StaticClassNameValue = {
 
 export default class CssProcessor extends TaggedTemplateProcessor {
   public override get asSelector(): string {
-    return this.className;
+      throw new Error("STUB");
   }
 
   public override get value(): StringLiteral {
-    return this.astService.stringLiteral(this.className);
+      throw new Error("STUB");
   }
 
   // eslint-disable-next-line class-methods-use-this
@@ -27,17 +27,15 @@ export default class CssProcessor extends TaggedTemplateProcessor {
     precedingCss: string,
     source: string
   ): string {
-    throw new Error(
-      `css tag cannot handle '${source}' as an interpolated value`
-    );
+      throw new Error("STUB");
   }
 
   public override doEvaltimeReplacement(): void {
-    this.replacer(this.value, false);
+      throw new Error("STUB");
   }
 
   public override doRuntimeReplacement(): void {
-    this.replacer(this.astService.stringLiteral(this.className), false);
+      throw new Error("STUB");
   }
 
   public override extractRules(
@@ -45,25 +43,10 @@ export default class CssProcessor extends TaggedTemplateProcessor {
     cssText: string,
     loc?: SourceLocation | null
   ): Rules {
-    const rules: Rules = {};
-
-    const selector = `.${this.className}`;
-
-    rules[selector] = {
-      cssText,
-      className: this.className,
-      displayName: this.displayName,
-      start: loc?.start ?? null,
-    };
-
-    return rules;
+      throw new Error("STUB");
   }
 
   public getStaticValue(): StaticClassNameValue {
-    return {
-      className: this.className,
-      kind: 'class-name',
-      value: this.className,
-    };
+      throw new Error("STUB");
   }
 }

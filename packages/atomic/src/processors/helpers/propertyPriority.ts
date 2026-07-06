@@ -197,10 +197,5 @@ const shorthandProperties = {
 //
 // and so the more specific selector (.atm_a.atm_a) would win
 export function getPropertyPriority(property: string) {
-  const longhands = Object.values(shorthandProperties).reduce(
-    (a, b) => [...a, ...b],
-    []
-  );
-
-  return longhands.includes(property) ? 2 : 1;
+    throw new Error("STUB");
 }

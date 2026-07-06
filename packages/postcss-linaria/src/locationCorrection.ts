@@ -264,32 +264,6 @@ export function locationCorrectionWalker(
   sourceAsString: string
 ): (node: Document | Root | ChildNode) => void {
   return (node: Document | Root | ChildNode): void => {
-    const root = node.root();
-    const baseIndentations = root.raws.linariaBaseIndentations;
-
-    if (baseIndentations) {
-      computeBeforeAfter(node, baseIndentations);
-    }
-
-    if (node.source?.start) {
-      node.source.start = correctLocation(
-        expr,
-        node.source.start,
-        baseIndentations,
-        sourceAsString,
-        root.raws.linariaPrefixOffsets,
-        'start'
-      );
-    }
-    if (node.source?.end) {
-      node.source.end = correctLocation(
-        expr,
-        node.source.end,
-        baseIndentations,
-        sourceAsString,
-        root.raws.linariaPrefixOffsets,
-        'end'
-      );
-    }
+      throw new Error("STUB");
   };
 }

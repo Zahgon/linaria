@@ -15,9 +15,9 @@ function isExtends<C, T>(arg1?: C, arg2?: T): C extends T ? 'extends' : never {
 const Fabric =
   <T extends React.HTMLAttributes<'div'>>(): React.FC<T> =>
   (props) =>
-    React.createElement('div', props);
+    { throw new Error("STUB"); };
 
-const Header = (p: { children: string }) => React.createElement('h1', p);
+const Header = (p: { children: string }) => { throw new Error("STUB"); };
 
 const Generic = <T>(
   p: T & { className?: string; style?: React.CSSProperties }
@@ -33,7 +33,7 @@ StyledButton.defaultProps = { as: 'a' };
 // @ts-expect-error href requires an anchor-like target
 StyledButton({ href: '/' });
 
-const A = (): React.ReactElement => React.createElement('div', null);
+const A = (): React.ReactElement => { throw new Error("STUB"); };
 // @ts-expect-error
 styled(A)``;
 
@@ -60,7 +60,7 @@ styled(Fabric<{ className: string }>())`
   // component should have style property
   color: ${
     // @ts-expect-error
-    () => 'red'
+    () => { throw new Error("STUB"); }
   };
 `;
 
@@ -83,20 +83,20 @@ styled(Fabric<{ className: string }>())`
 `;
 
 styled(Fabric<{ className: string; style: {} }>())`
-  color: ${() => 'red'};
+  color: ${() => { throw new Error("STUB"); }};
 `;
 
 styled(Fabric<{ className: string; style: {} }>())`
   // color should be defined in props
   color: ${
     // @ts-expect-error
-    (props) => props.color
+    (props) => { throw new Error("STUB"); }
   };
 `;
 
 styled(Fabric<{ className: string; color: 'red' | 'blue'; style: {} }>())`
   & > ${SimplestComponent} {
-    color: ${(props) => props.color};
+    color: ${(props) => { throw new Error("STUB"); }};
   }
 `;
 
@@ -114,85 +114,17 @@ styled.a`
 `({ href: 'about:blank' });
 
 ((/* Issue #536 */) => {
-  const Title = styled.div<{ background: string }>`
-    background: ${(props) => props.background};
-  `;
-
-  // $ExpectType "extends"
-  isExtends<typeof Title, React.FC<{ background: string }>>();
-
-  css`
-    ${Title} {
-      color: green;
-    }
-  `;
+    throw new Error("STUB");
 })();
 
 ((/* Issue #622 */) => {
-  const Wrapper = styled.div<{ prop1: boolean }>`
-    width: 1em;
-    background-color: ${(props) => (props.prop1 ? 'transparent' : 'green')};
-  `;
-
-  const Custom: React.FC<{ className?: string; id: number }> = () => null;
-
-  const tag = styled(Custom);
-  const Card = tag`
-    ${Wrapper} {
-      color: green;
-    }
-  `;
-
-  // $ExpectType Validator<number> | undefined
-  Card.propTypes!.id;
-
-  const styledTag = styled(Wrapper);
-
-  const NewWrapper = styledTag<{ prop2: string }>`
-    width: 2em;
-    background-color: ${(props) => (props.prop1 ? 'transparent' : 'red')};
-    color: ${(props) => props.prop2};
-  `;
-
-  // $ExpectType Validator<boolean> | undefined
-  NewWrapper.propTypes!.prop1;
-
-  // $ExpectType Validator<string> | undefined
-  NewWrapper.propTypes!.prop2;
+    throw new Error("STUB");
 })();
 
 ((/* Issue #844 */) => {
-  type GridProps = { container?: false } | { container: true; spacing: number };
-
-  const Grid: React.FC<GridProps & { className?: string }> = () => null;
-
-  // Type 'false' is not assignable to type 'true'
-  // @ts-expect-error
-  React.createElement(Grid, { container: false, spacing: 8 });
-
-  React.createElement(Grid, { container: true, spacing: 8 });
-
-  styled(Grid)``;
+    throw new Error("STUB");
 })();
 
 ((/* Issue #872 */) => {
-  interface BaseProps {
-    className?: string;
-    style?: React.CSSProperties;
-  }
-
-  interface ComponentProps extends BaseProps {
-    title: string;
-  }
-
-  const Flow = <TProps extends BaseProps>(Cmp: React.FC<TProps>) => styled(Cmp)`
-    display: flow;
-  `;
-
-  const Component: React.FC<ComponentProps> = (props) =>
-    React.createElement('div', props);
-
-  const Implementation = Flow(Component);
-
-  (() => React.createElement(Implementation, { title: 'Title' }))();
+    throw new Error("STUB");
 })();

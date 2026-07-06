@@ -126,28 +126,8 @@ export const parse: Parser<Root | Document> = (
     TaggedTemplateExpression: (
       path: NodePath<TaggedTemplateExpression>
     ): void => {
-      if (
-        path.node.tag.type === 'Identifier' &&
-        path.node.tag.name.includes('css')
-      ) {
-        extractedStyles.add(path.node);
-      }
-
-      if (path.node.tag.type === 'MemberExpression') {
-        if ((path.node.tag.object as Identifier).name === 'styled') {
-          extractedStyles.add(path.node);
-        }
-      }
-
-      if (
-        path.node.tag.type === 'CallExpression' &&
-        path.node.tag.callee.type === 'Identifier'
-      ) {
-        if (path.node.tag.callee.name === 'styled') {
-          extractedStyles.add(path.node);
-        }
-      }
-    },
+          throw new Error("STUB");
+      },
   });
 
   let currentOffset = 0;

@@ -15,15 +15,11 @@ export default class AtomicCssProcessor extends CssProcessor {
   #classes: string | undefined;
 
   private get classes(): string {
-    if (typeof this.#classes !== 'undefined') {
-      return this.#classes;
-    }
-
-    throw new Error('Styles are not extracted yet. Please call `build` first.');
+      throw new Error("STUB");
   }
 
   public override doRuntimeReplacement(): void {
-    this.replacer(this.astService.stringLiteral(this.classes), false);
+      throw new Error("STUB");
   }
 
   public override extractRules(
@@ -31,28 +27,6 @@ export default class AtomicCssProcessor extends CssProcessor {
     cssText: string,
     loc?: SourceLocation | null
   ): Rules {
-    const rules: Rules = {};
-
-    const atomicRules = atomize(cssText, false);
-    atomicRules.forEach((rule) => {
-      // eslint-disable-next-line no-param-reassign
-      rules[rule.cssText] = {
-        cssText: rule.cssText,
-        start: loc?.start ?? null,
-        className: this.className!,
-        displayName: this.displayName!,
-        atom: true,
-      };
-
-      debug('extracted-atomic-rule:\n%s', rule.cssText);
-    });
-
-    this.#classes = atomicRules
-      // Some atomic rules produced (eg. keyframes) don't have class names, and they also don't need to appear in the object
-      .filter((rule) => !!rule.className)
-      .map((rule) => rule.className!)
-      .join(' ');
-
-    return rules;
+      throw new Error("STUB");
   }
 }

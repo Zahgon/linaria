@@ -30,17 +30,7 @@ const cx: ICX = function cx() {
   const atomicClasses: { [k: string]: string } = {};
   const nonAtomicClasses: string[] = [];
   presentClassNames.forEach((arg) => {
-    // className could be the output of a previous cx call, so split by ' ' first
-    const individualClassNames = arg ? arg.split(' ') : [];
-
-    individualClassNames.forEach((className) => {
-      if (className.startsWith('atm_')) {
-        const [, keyHash] = className.split('_');
-        atomicClasses[keyHash] = className;
-      } else {
-        nonAtomicClasses.push(className);
-      }
-    });
+      throw new Error("STUB");
   });
 
   const result: string[] = [];

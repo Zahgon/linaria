@@ -41,7 +41,7 @@ const isCapital = (ch: string): boolean => ch.toUpperCase() === ch;
 const filterKey =
   <TExclude extends keyof any>(keys: TExclude[]) =>
   <TAll extends keyof any>(key: TAll): key is Exclude<TAll, TExclude> =>
-    keys.indexOf(key as any) === -1;
+    { throw new Error("STUB"); };
 
 export const omit = <T extends Record<string, unknown>, TKeys extends keyof T>(
   obj: T,
@@ -51,7 +51,7 @@ export const omit = <T extends Record<string, unknown>, TKeys extends keyof T>(
   Object.keys(obj)
     .filter(filterKey(keys))
     .forEach((key) => {
-      res[key] = obj[key];
+        throw new Error("STUB");
     });
 
   return res;
@@ -73,10 +73,7 @@ function filterProps<T extends Record<string, unknown>, TKeys extends keyof T>(
       typeof validAttr === 'function' ? { default: validAttr } : validAttr;
 
     Object.keys(filteredProps).forEach((key) => {
-      if (!interopValidAttr.default(key)) {
-        // Don't pass through invalid attributes to HTML elements
-        delete filteredProps[key];
-      }
+        throw new Error("STUB");
     });
   }
 
@@ -167,96 +164,7 @@ function styled(tag: any): any {
   }
 
   return (options: Options) => {
-    if (
-      process.env.NODE_ENV !== 'production' &&
-      process.env.NODE_ENV !== 'test'
-    ) {
-      if (Array.isArray(options)) {
-        // We received a strings array since it's used as a tag
-        throw new Error(
-          'Using the "styled" tag in runtime is not supported. Make sure you have set up the Babel plugin correctly. See https://github.com/callstack/linaria#setup'
-        );
-      }
-    }
-
-    const render = (props: any, ref: any) => {
-      const { as: component = tag, class: className = mockedClass } = props;
-      const shouldKeepProps =
-        options.propsAsIs === undefined
-          ? !(
-              typeof component === 'string' &&
-              component.indexOf('-') === -1 &&
-              !isCapital(component[0])
-            )
-          : options.propsAsIs;
-      const filteredProps: IProps = filterProps(shouldKeepProps, props, [
-        'as',
-        'class',
-      ]);
-
-      filteredProps.ref = ref;
-      filteredProps.className = options.atomic
-        ? cx(options.class, filteredProps.className || className)
-        : cx(filteredProps.className || className, options.class);
-
-      const { vars } = options;
-
-      if (vars) {
-        const style: Record<string, string> = {};
-
-        // eslint-disable-next-line guard-for-in,no-restricted-syntax
-        for (const name in vars) {
-          const variable = vars[name];
-          const result = variable[0];
-          const unit = variable[1] || '';
-          const value = typeof result === 'function' ? result(props) : result;
-
-          if (value != null) {
-            warnIfInvalid(value, options.name);
-
-            style[`--${name}`] = `${value}${unit}`;
-          }
-        }
-
-        const ownStyle = filteredProps.style || {};
-        const keys = Object.keys(ownStyle);
-        if (keys.length > 0) {
-          keys.forEach((key) => {
-            style[key] = ownStyle[key];
-          });
-        }
-
-        filteredProps.style = style;
-      }
-
-      if ((tag as any).__wyw_meta && tag !== component) {
-        // If the underlying tag is a styled component, forward the `as` prop
-        // Otherwise the styles from the underlying component will be ignored
-        filteredProps.as = component;
-
-        return createElement(tag, filteredProps);
-      }
-      return createElement(component, filteredProps);
-    };
-
-    const Result = forwardRef
-      ? forwardRef(render)
-      : // React.forwardRef won't available on older React versions and in Preact
-        // Fallback to a innerRef prop in that case
-        (props: any) => {
-          const rest = omit(props, ['innerRef']);
-          return render(rest, props.innerRef);
-        };
-
-    (Result as any).displayName = options.name;
-
-    // These properties will be read by the babel plugin for interpolation
-    (Result as any).__wyw_meta = {
-      className: options.class || mockedClass,
-      extends: tag,
-    };
-
-    return Result;
+      throw new Error("STUB");
   };
 }
 
